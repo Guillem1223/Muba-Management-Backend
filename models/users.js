@@ -27,6 +27,11 @@ class users extends Sequelize.Model {
     nombre_user: {
       type: DataTypes.STRING(50),
       allowNull: false
+    },
+    role: {
+      type: DataTypes.ENUM('user','performer','contractor','admin','super_admin'),
+      allowNull: true,
+      defaultValue: "user"
     }
   }, {
     sequelize,
