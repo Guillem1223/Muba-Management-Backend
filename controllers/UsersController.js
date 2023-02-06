@@ -1,26 +1,32 @@
-import express from "express";
-import mysql from "mysql2";
-import { Router } from "express";
-import { Users, Performers, Contracts, Contractor } from "../models";
+const express = require("express");
+const mysql = require("mysql2");
+const Router = require("express").Router;
+const Users = require("../models/users");
+const Performers = require("../models").Performers;
+const Contracts = require("../models").Contracts;
+const Contractor = require("../models").Contractor;
+const { Op } = require("sequelize");
 
-export const usersController = {};
+var usersController = {};
 
 usersController.create = async (req, res) => {
   try {
     const { email, password, telefono, nombre_user, role } = req.body;
-    const users = await Users.create({
+    const data = await Users.create({
       email,
       password,
       telefono,
       nombre_user,
       role,
     });
-    res.send(users);
+    res.send(data);
   } catch (error) {
+    console.log(error);
     res.status(500).send({
       message: "some error ocurred while creating the client",
+      data: error,
     });
   }
 };
 
-export default usersController;
+module.exports = usersController;

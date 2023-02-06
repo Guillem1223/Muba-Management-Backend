@@ -1,9 +1,9 @@
-import Sequelize from "sequelize";
-// module.exports = (sequelize, DataTypes) => {
-//   return users.init(sequelize, DataTypes);
-// }
+const Sequelize = require("sequelize");
+module.exports = (sequelize, DataTypes) => {
+  return users.init(sequelize, DataTypes);
+};
 
-export default class users extends Sequelize.Model {
+class users extends Sequelize.Model {
   static init(sequelize, DataTypes) {
     return super.init(
       {
@@ -56,4 +56,12 @@ export default class users extends Sequelize.Model {
       }
     );
   }
+  //   static async create(data) {
+  //     try {
+  //       return await this.create(data);
+  //     } catch (error) {
+  //       console.error(error);
+  //       return null;
+  //     }
+  //   }
 }

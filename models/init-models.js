@@ -10,14 +10,32 @@ function initModels(sequelize) {
   const performers = _performers(sequelize, DataTypes);
   const users = _users(sequelize, DataTypes);
 
-  contractor.belongsTo(contracts, { as: "contract", foreignKey: "contracts_id"});
-  contracts.hasMany(contractor, { as: "contractors", foreignKey: "contracts_id"});
-  contracts.belongsTo(performers, { as: "performer", foreignKey: "performers_id"});
-  performers.hasMany(contracts, { as: "contracts", foreignKey: "performers_id"});
-  contractor.belongsTo(users, { as: "users_type", foreignKey: "users_type_id"});
-  users.hasMany(contractor, { as: "contractors", foreignKey: "users_type_id"});
-  performers.belongsTo(users, { as: "users_type", foreignKey: "users_type_id"});
-  users.hasMany(performers, { as: "performers", foreignKey: "users_type_id"});
+  contractor.belongsTo(contracts, {
+    as: "contract",
+    foreignKey: "contracts_id",
+  });
+  contracts.hasMany(contractor, {
+    as: "contractors",
+    foreignKey: "contracts_id",
+  });
+  contracts.belongsTo(performers, {
+    as: "performer",
+    foreignKey: "performers_id",
+  });
+  performers.hasMany(contracts, {
+    as: "contracts",
+    foreignKey: "performers_id",
+  });
+  contractor.belongsTo(users, {
+    as: "users_type",
+    foreignKey: "users_type_id",
+  });
+  users.hasMany(contractor, { as: "contractors", foreignKey: "users_type_id" });
+  performers.belongsTo(users, {
+    as: "users_type",
+    foreignKey: "users_type_id",
+  });
+  users.hasMany(performers, { as: "performers", foreignKey: "users_type_id" });
 
   return {
     contractor,

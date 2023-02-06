@@ -1,5 +1,5 @@
-import express from "express";
-import usersController from "../controllers/UsersController";
+var express = require("express");
+var usersController = require("../controllers/UsersController");
 var router = express.Router();
 
 /* GET users listing. */
@@ -8,4 +8,5 @@ router.get("/", function (req, res, next) {
 });
 // post users register
 router.post("/reg", usersController.create);
-export default router;
+
+module.exports = router;

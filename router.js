@@ -1,8 +1,9 @@
-import router from "express";
-import index from "./routes/index";
-import users from "./routes/users";
+var express = require("express");
+var router = express.Router();
+var index = require("./routes/index");
+var users = require("./routes/users");
 
 router.use("/", index);
 router.use("/users", users);
 
-export default router;
+module.exports = router;
