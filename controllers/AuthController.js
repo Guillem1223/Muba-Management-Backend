@@ -8,7 +8,7 @@ AuthController.register = async (req, res) => {
   console.log(req.body);
 
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, telefono } = req.body;
 
     // PASSWORD CODE VALIDATION
     if (password.length < 6) {
@@ -24,6 +24,7 @@ AuthController.register = async (req, res) => {
       nombre_user: name,
       email: email,
       password: encryptedPassword,
+      telefono: telefono,
     };
 
     await User.create(newUser);
