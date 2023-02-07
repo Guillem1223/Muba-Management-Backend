@@ -29,7 +29,7 @@ usersController.create = async (req, res) => {
 };
 usersController.findAll = async (req, res) => {
   try {
-    const data = await Users.findAll({
+    const data = await users.findAll({
       include: [
         {
           model: performers,
@@ -40,8 +40,10 @@ usersController.findAll = async (req, res) => {
     });
     res.json(data);
   } catch (error) {
+    console.log(error);
     res.status(500).send({
       message: "some error ocurred while retrieving users.",
+      data: error,
     });
   }
 };
