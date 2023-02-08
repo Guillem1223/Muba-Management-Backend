@@ -1,4 +1,4 @@
-Sequelize = require("sequelize");
+const Sequelize = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   return contractor.init(sequelize, DataTypes);
 };
