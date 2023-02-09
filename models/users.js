@@ -16,6 +16,7 @@ class users extends Sequelize.Model {
         email: {
           type: DataTypes.STRING(50),
           allowNull: false,
+          unique: true,
         },
         password: {
           type: DataTypes.STRING(50),
@@ -56,12 +57,4 @@ class users extends Sequelize.Model {
       }
     );
   }
-  //   static async create(data) {
-  //     try {
-  //       return await this.create(data);
-  //     } catch (error) {
-  //       console.error(error);
-  //       return null;
-  //     }
-  //   }
 }

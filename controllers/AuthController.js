@@ -1,14 +1,29 @@
 const User = require("../models/users.js");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-
+const { users, performers, contractor } = require("../models");
 const AuthController = {};
 
 AuthController.register = async (req, res) => {
   console.log(req.body);
 
   try {
-    const { name, email, password } = req.body;
+    const {
+      nombre_user,
+      email,
+      password,
+      telefono,
+      project_decription,
+      rate_nonprofit_event,
+      rate_150_capacity_event,
+      rate_300_capacity_event,
+      rate_350_capacity_event,
+      rate_1000_capacity_event,
+      role,
+      tax_data,
+      backline,
+      technical_rider,
+    } = req.body;
 
     // PASSWORD CODE VALIDATION
     if (password.length < 6) {
@@ -20,13 +35,45 @@ AuthController.register = async (req, res) => {
 
     const encryptedPassword = bcrypt.hashSync(password, 10);
 
-    const newUser = {
-      name: name,
+    let newUser = {
+      nombre_user: nombre_user,
       email: email,
       password: encryptedPassword,
+      telefono: telefono,
+      // project_decription,
+      // rate_nonprofit_event,
+      // rate_150_capacity_event,
+      // rate_300_capacity_event,
+      // rate_350_capacity_event,
+      // rate_1000_capacity_event,
+      // tax_data,
+      // backline,
+      // technical_rider,
     };
-
-    await User.create(newUser);
+    try {
+      const user = await users.create(newUser);
+      // const users_type_id = user.users_type_id;
+      // newUser = { ...newUser, users_type_id };
+    } catch (error) {
+      console.log(error);
+    }
+    // switch (role) {
+    //   case "performer":
+    //     try {
+    //       console.log("hola");
+    //       await performers.create(newUser);
+    //     } catch (error) {
+    //       console.log(error);
+    //     }
+    //     break;
+    //   case "contractor":
+    //     try {
+    //       await contractor.create(newUser);
+    //     } catch (error) {
+    //       console.log(error);
+    //     }
+    //     break;
+    // }
 
     return res.status(200).json({
       success: true,
