@@ -1,10 +1,11 @@
 const express = require("express");
 const mysql = require("mysql2");
 const Router = require("express").Router;
-
+const bcrypt = require("bcrypt");
 const { Op } = require("sequelize");
 
 const { users, performers, contractor, contracts } = require("../models.js");
+
 var usersController = {};
 
 // usersController.create = async (req, res) => {
@@ -61,6 +62,20 @@ usersController.findAll = async (req, res) => {
       message: "some error ocurred while retrieving users.",
       data: error,
     });
+  }
+};
+usersController.deleteById = async (req, res) => {
+  try {
+    const deletedOne = await users.destroy({
+      where: { users_type_id: req.params.id },
+    });
+    res.json({
+      message: `${req.params.id} DELETED`,
+      data: deletedOne,
+    });
+  } catch (error) {
+    console.log("error: " + error);
+    res.status(500).send("Internal server error");
   }
 };
 

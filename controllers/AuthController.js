@@ -40,40 +40,44 @@ AuthController.register = async (req, res) => {
       email: email,
       password: encryptedPassword,
       telefono: telefono,
-      // project_decription,
-      // rate_nonprofit_event,
-      // rate_150_capacity_event,
-      // rate_300_capacity_event,
-      // rate_350_capacity_event,
-      // rate_1000_capacity_event,
-      // tax_data,
-      // backline,
-      // technical_rider,
+      project_decription,
+      rate_nonprofit_event,
+      rate_150_capacity_event,
+      rate_300_capacity_event,
+      rate_350_capacity_event,
+      rate_1000_capacity_event,
+      tax_data,
+      backline,
+      technical_rider,
     };
+    let users_type_id;
     try {
       const user = await users.create(newUser);
-      // const users_type_id = user.users_type_id;
-      // newUser = { ...newUser, users_type_id };
+      users_type_id = user.users_type_id;
+      newUser = { ...newUser, users_type_id };
     } catch (error) {
       console.log(error);
     }
-    // switch (role) {
-    //   case "performer":
-    //     try {
-    //       console.log("hola");
-    //       await performers.create(newUser);
-    //     } catch (error) {
-    //       console.log(error);
-    //     }
-    //     break;
-    //   case "contractor":
-    //     try {
-    //       await contractor.create(newUser);
-    //     } catch (error) {
-    //       console.log(error);
-    //     }
-    //     break;
-    // }
+    console.log("newUser: " + newUser);
+    console.log(users_type_id);
+    console.log(role);
+    switch (role) {
+      case "performer":
+        try {
+          console.log("hola");
+          await performers.create(newUser);
+        } catch (error) {
+          console.log(error);
+        }
+        break;
+      case "contractor":
+        try {
+          await contractor.create(newUser);
+        } catch (error) {
+          console.log(error);
+        }
+        break;
+    }
 
     return res.status(200).json({
       success: true,
@@ -87,7 +91,93 @@ AuthController.register = async (req, res) => {
     });
   }
 };
+AuthController.update = async (req, res) => {
+  console.log(req.body);
 
+  try {
+    const {
+      nombre_user,
+      email,
+      password,
+      telefono,
+      project_decription,
+      rate_nonprofit_event,
+      rate_150_capacity_event,
+      rate_300_capacity_event,
+      rate_350_capacity_event,
+      rate_1000_capacity_event,
+      role,
+      tax_data,
+      backline,
+      technical_rider,
+    } = req.body;
+
+    // PASSWORD CODE VALIDATION
+    if (password.length < 6) {
+      return res.status(500).json({
+        success: false,
+        message: "Password is shorter than 6 characters",
+      });
+    }
+
+    const encryptedPassword = bcrypt.hashSync(password, 10);
+
+    let newUser = {
+      nombre_user: nombre_user,
+      email: email,
+      password: encryptedPassword,
+      telefono: telefono,
+      project_decription,
+      rate_nonprofit_event,
+      rate_150_capacity_event,
+      rate_300_capacity_event,
+      rate_350_capacity_event,
+      rate_1000_capacity_event,
+      tax_data,
+      backline,
+      technical_rider,
+    };
+    let users_type_id;
+    try {
+      const user = await users.update(newUser);
+      users_type_id = user.users_type_id;
+      newUser = { ...newUser, users_type_id };
+    } catch (error) {
+      console.log(error);
+    }
+    console.log("newUser: " + newUser);
+    console.log(users_type_id);
+    console.log(role);
+    switch (role) {
+      case "performer":
+        try {
+          console.log("hola");
+          await performers.update(newUser);
+        } catch (error) {
+          console.log(error);
+        }
+        break;
+      case "contractor":
+        try {
+          await contractor.update(newUser);
+        } catch (error) {
+          console.log(error);
+        }
+        break;
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Create user successfully",
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Error creating user",
+      error: error?.message || error,
+    });
+  }
+};
 AuthController.login = async (req, res) => {
   console.log(req.headers);
 

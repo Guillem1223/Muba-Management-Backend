@@ -1,6 +1,8 @@
-var express = require("express");
-var usersController = require("../controllers/UsersController");
+const express = require("express");
+
 const AuthController = require("../controllers/AuthController.js");
+
+const usersController = require("../controllers/UsersController.js");
 var router = express.Router();
 
 /* GET users listing. */
@@ -10,6 +12,10 @@ router.get("/", function (req, res, next) {
 router.get("/find/:role", usersController.findAll);
 
 // post users register
-router.post("/reg", AuthController.register);
+router.post("/reg/:role", AuthController.register);
 
+// delete users
+router.delete("/delete/:id", usersController.deleteById);
+// update users
+router.put("/update", AuthController.update);
 module.exports = router;
