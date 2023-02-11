@@ -44,6 +44,7 @@ class performers extends Sequelize.Model {
             model: "users",
             key: "users_type_id",
           },
+          onDelete: "CASCADE",
         },
       },
       {
