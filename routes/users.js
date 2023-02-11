@@ -17,5 +17,5 @@ router.post("/reg/:role", AuthController.register);
 // delete users
 router.delete("/delete/:id", usersController.deleteById);
 // update users
-router.put("/update", AuthController.update);
+router.put("/update/:id", AuthController.update);
 module.exports = router;
