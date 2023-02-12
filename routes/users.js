@@ -1,6 +1,7 @@
 const express = require("express");
 
 const AuthController = require("../controllers/AuthController.js");
+const contractorController = require("../controllers/ContractorController.js");
 const performersController = require("../controllers/PerformersController.js");
 
 const usersController = require("../controllers/UsersController.js");
@@ -22,5 +23,5 @@ router.put("/update/:id", AuthController.update);
 
 //find by id
 router.get("/:id", performersController.getById);
-
+router.get("/contractor/:id", contractorController.getById);
 module.exports = router;
