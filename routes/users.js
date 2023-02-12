@@ -1,6 +1,7 @@
 const express = require("express");
 
 const AuthController = require("../controllers/AuthController.js");
+const performersController = require("../controllers/PerformersController.js");
 
 const usersController = require("../controllers/UsersController.js");
 var router = express.Router();
@@ -18,4 +19,8 @@ router.post("/reg/:role", AuthController.register);
 router.delete("/delete/:id", usersController.deleteById);
 // update users
 router.put("/update/:id", AuthController.update);
+
+//find by id
+router.get("/:id", performersController.getById);
+
 module.exports = router;
