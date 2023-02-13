@@ -2,6 +2,7 @@ const express = require("express");
 
 const AuthController = require("../controllers/AuthController.js");
 const contractorController = require("../controllers/ContractorController.js");
+const contractsController = require("../controllers/ContractsController.js");
 const performersController = require("../controllers/PerformersController.js");
 
 const usersController = require("../controllers/UsersController.js");
@@ -15,7 +16,8 @@ router.get("/find/:role", usersController.findAll);
 
 // post users register
 router.post("/reg/:role", AuthController.register);
-
+// contract register
+router.post("/contract", contractsController.register);
 // delete users
 router.delete("/delete/:id", usersController.deleteById);
 // update users
