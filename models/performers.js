@@ -13,7 +13,7 @@ class performers extends Sequelize.Model {
           allowNull: false,
           primaryKey: true,
         },
-        project_decription: {
+        project_description: {
           type: DataTypes.STRING(500),
           allowNull: false,
         },

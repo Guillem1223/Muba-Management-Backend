@@ -49,6 +49,14 @@ class contracts extends Sequelize.Model {
             key: "performers_id",
           },
         },
+        contractor_id: {
+          type: DataTypes.INTEGER,
+          allowNull: false,
+          references: {
+            model: "contractor",
+            key: "contractor_id",
+          },
+        },
       },
       {
         sequelize,
@@ -65,6 +73,11 @@ class contracts extends Sequelize.Model {
             name: "performers_id",
             using: "BTREE",
             fields: [{ name: "performers_id" }],
+          },
+          {
+            name: "contractor_id",
+            using: "BTREE",
+            fields: [{ name: "contractor_id" }],
           },
         ],
       }
