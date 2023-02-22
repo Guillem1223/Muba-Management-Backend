@@ -13,7 +13,7 @@ AuthController.register = async (req, res) => {
       email,
       password,
       telefono,
-      project_decription,
+      project_description,
       rate_nonprofit_event,
       rate_150_capacity_event,
       rate_300_capacity_event,
@@ -36,11 +36,11 @@ AuthController.register = async (req, res) => {
     const encryptedPassword = bcrypt.hashSync(password, 10);
 
     let newUser = {
-      nombre_user: nombre_user,
-      email: email,
+      nombre_user,
+      email,
       password: encryptedPassword,
-      telefono: telefono,
-      project_decription,
+      telefono,
+      project_description,
       rate_nonprofit_event,
       rate_150_capacity_event,
       rate_300_capacity_event,
@@ -49,6 +49,7 @@ AuthController.register = async (req, res) => {
       tax_data,
       backline,
       technical_rider,
+      role,
     };
     let users_type_id;
     try {
@@ -61,7 +62,13 @@ AuthController.register = async (req, res) => {
     console.log("newUser: " + newUser);
     console.log(users_type_id);
     console.log(role);
+
+    //muy importante nunca puede guardarse un case super admin
     switch (role) {
+      case "super_admin":
+        // lo que hacemos es convertir un possible rol que entre como super_admin a user
+        role = "user";
+        break;
       case "performer":
         try {
           console.log("hola");
@@ -84,6 +91,7 @@ AuthController.register = async (req, res) => {
       message: "Create user successfully",
     });
   } catch (error) {
+    console.log("error: ", error);
     return res.status(500).json({
       success: false,
       message: "Error creating user",
@@ -98,7 +106,7 @@ AuthController.update = async (req, res) => {
       email,
       password,
       telefono,
-      project_decription,
+      project_description,
       rate_nonprofit_event,
       rate_150_capacity_event,
       rate_300_capacity_event,
@@ -108,6 +116,7 @@ AuthController.update = async (req, res) => {
       backline,
       technical_rider,
       role,
+      contracts_id,
     } = req.body;
 
     // Buscar el usuario en la base de datos a partir de su ID
@@ -134,7 +143,7 @@ AuthController.update = async (req, res) => {
       : user.password;
 
     // Actualizar los datos del usuario en la base de datos
-
+    console.log("role: ", role);
     switch (role) {
       case "performer":
         user = await users.findByPk(req.params.id, {
@@ -159,7 +168,7 @@ AuthController.update = async (req, res) => {
         console.log(performer.project_description);
         await performer.update({
           project_decription:
-            project_decription || user.performers.project_decription,
+            project_description || user.performers.project_description,
           rate_nonprofit_event:
             rate_nonprofit_event || user.performers.rate_nonprofit_event,
           rate_150_capacity_event:
@@ -196,6 +205,7 @@ AuthController.update = async (req, res) => {
         });
         console.log("taxData :" + contractor_.tax_data);
         await contractor_.update({
+          contracts_id: contracts_id || user.contracts.contracts.id,
           tax_data: tax_data || user.contractors.tax_data,
           backline: backline || user.contractors.backline,
           technical_rider: technical_rider || user.contractors.technical_rider,
@@ -220,7 +230,7 @@ AuthController.update = async (req, res) => {
 };
 
 AuthController.login = async (req, res) => {
-  console.log(req.headers);
+  console.log("body: ", req.body);
 
   try {
     const { email, password } = req.body;
@@ -233,8 +243,8 @@ AuthController.login = async (req, res) => {
       });
     }
 
-    const user = await User.findOne({ email: email });
-
+    const user = await users.findOne({ where: { email: email } });
+    console.log("info bcrypt: ", password, user.password);
     const isValidPassword = bcrypt.compareSync(password, user.password);
 
     if (!isValidPassword) {
@@ -243,9 +253,9 @@ AuthController.login = async (req, res) => {
         message: "Bad Credentials",
       });
     }
-
+    console.log(process.env.JWT_SECRET);
     const token = jwt.sign(
-      { user_id: user._id, user_role: user.role },
+      { user_id: user.users_type_id, user_role: user.role },
       process.env.JWT_SECRET,
       { expiresIn: "20m" }
     );
@@ -255,9 +265,10 @@ AuthController.login = async (req, res) => {
       message: `User Logged as ${user.role.toUpperCase()}`,
       token: token,
       role: user.role,
-      id: user._id,
+      id: user.users_type_id,
     });
   } catch (error) {
+    console.log("error: ", error);
     return res.status(500).json({
       success: false,
       message: "User Login failed",

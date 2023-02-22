@@ -2,57 +2,6 @@ const { users, performers, contractor, contracts } = require("../models.js");
 
 const contractsController = {};
 
-// contractsController.register = async (req, res) => {
-//   const event_description = req.body.event_description;
-//   const rate_type = req.body.rate_type;
-//   const contract_status = req.body.contract_status;
-//   const event_date = req.body.event_date;
-//   const event_direction = req.body.event_direction;
-//   const event_shedule = req.body.event_shedule;
-//   const invoice_status = req.body.invoice_status;
-//   const contractors_id = req.body.contractors_id;
-//   const performers_id = req.body.performers_id;
-
-//   //Verificar si contractors_id existe en la tabla de contratistas
-//   console.log("Hola");
-//   const contractorExists = await contractor.findOne({
-//     where: { contractors_id },
-//   });
-//   if (!contractorExists) {
-//     return res.status(400).json({
-//       error: "El contratista especificado no existe en la base de datos",
-//     });
-//   }
-
-//   //Verificar si performers_id existe en la tabla de artistas
-//   const performerExists = await performers.findOne({
-//     where: { performers_id },
-//   });
-//   if (!performerExists) {
-//     return res.status(400).json({
-//       error: "El artista especificado no existe en la base de datos",
-//     });
-//   }
-
-//   // Crear un nuevo registro en la tabla de contratos
-//   const contract = await contracts.create({
-//     event_description,
-//     rate_type,
-//     contract_status,
-//     event_date,
-//     event_direction,
-//     event_shedule,
-//     invoice_status,
-//     contractors_id,
-//     performers_id,
-//   });
-
-//   return res.status(201).json({
-//     message: "Contrato creado exitosamente",
-//     contracts,
-//   });
-// };
-
 contractsController.register = async (req, res) => {
   const {
     event_description,
@@ -62,14 +11,14 @@ contractsController.register = async (req, res) => {
     event_direction,
     event_shedule,
     invoice_status,
-
+    contractor_id,
     performers_id,
   } = req.body;
 
   try {
     //Verificar si contractors_id existe en la tabla de contratistas
     const contractorExists = await contractor.findOne({
-      where: { contractors_id },
+      where: { contractor_id },
     });
     if (!contractorExists) {
       return res.status(400).json({
@@ -100,7 +49,7 @@ contractsController.register = async (req, res) => {
       event_direction,
       event_shedule,
       invoice_status,
-
+      contractor_id,
       performers_id,
     });
 

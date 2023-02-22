@@ -42,6 +42,7 @@ usersController.findAll = async (req, res) => {
               include: { model: contracts, as: "contracts" },
             },
           ],
+          attributes: { exclude: ["password", "telefono"] },
         });
         break;
       case "contractor":
