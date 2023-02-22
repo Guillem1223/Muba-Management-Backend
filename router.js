@@ -1,9 +1,9 @@
-var express = require("express");
-var router = express.Router();
-var index = require("./routes/index");
-var users = require("./routes/users");
+const express = require("express");
+const router = express.Router();
+const index = require("./routes/index");
+const users = require("./routes/users");
 
 router.use("/", index);
 router.use("/users", users);
-
+router.use("/auth", auth);
 module.exports = router;

@@ -6,18 +6,21 @@ const contractsController = require("../controllers/ContractsController.js");
 const performersController = require("../controllers/PerformersController.js");
 
 const usersController = require("../controllers/UsersController.js");
+const verifyToken = require("../middelwares/verifyToken.js");
 var router = express.Router();
 
 /* GET users listing. */
 router.get("/", function (req, res, next) {
   res.send("respond with a resource");
 });
-router.get("/find/:role", usersController.findAll);
+router.get("/find/:role", verifyToken, usersController.findAll);
 
 // post users register
-router.post("/reg/:role", AuthController.register);
+router.post("/reg", AuthController.register);
 // contract register
 router.post("/contract", contractsController.register);
+// login
+router.post("/login", AuthController.login);
 // delete users
 router.delete("/delete/:id", usersController.deleteById);
 // update users
