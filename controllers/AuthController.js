@@ -101,6 +101,7 @@ AuthController.register = async (req, res) => {
 };
 AuthController.update = async (req, res) => {
   try {
+    console.log(req.body);
     const {
       nombre_user,
       email,
@@ -119,6 +120,7 @@ AuthController.update = async (req, res) => {
       contracts_id,
     } = req.body;
 
+    console.log(nombre_user);
     // Buscar el usuario en la base de datos a partir de su ID
     let user = await users.findByPk(req.params.id);
 
@@ -155,13 +157,14 @@ AuthController.update = async (req, res) => {
             },
           ],
         });
-        console.log("user :" + user.performers.performers_id);
-        await user.update({
+        console.log("user :" + nombre_user);
+        const updatedUser = await user.update({
           nombre_user: nombre_user || user.nombre_user,
           email: email || user.email,
           password: encryptedPassword,
           telefono: telefono || user.telefono,
         });
+        console.log("updateUser: ", updatedUser);
         const performer = await performers.findOne({
           users_type_id: req.params.id,
         });
