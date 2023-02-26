@@ -43,4 +43,4 @@ Este proyecto es un backend para una aplicación con Express, Sequelize y MySQL.
 | POST | users/contract | Registra un nuevo contrato. |
 | GET | users/performers/:id | Devuelve la información de un intérprete por su ID. |
 | GET | users/contractor/:id | Devuelve la información de un contratista por su ID. |
-| GET | users/find/:role | Devuelve todos los usuarios y gestiona informacion especifica de cada role. |
+| GET | users/find/:role | Devuelve todos los usuarios y gestiona informacion especifica de cada role. ||
