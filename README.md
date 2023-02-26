@@ -32,15 +32,14 @@ Este proyecto es un backend para una aplicación con Express, Sequelize y MySQL.
 
 ## Rutas
 
-| Método | Ruta | Descripción |
-| ------ | ---- | ----------- |
-
-| GET | /users/find/:role | Devuelve los usuarios filtrados por rol. |
-| POST | /users/reg | Registra un nuevo usuario. |
-| DELETE | /users/delete/:id | Elimina un usuario por su ID. |
-| PUT | /users/update/:id | Actualiza la información de un usuario por su ID. |
-| POST | /users/login | Inicia sesión con un usuario registrado. |
-| POST | users/contract | Registra un nuevo contrato. |
-| GET | users/performers/:id | Devuelve la información de un intérprete por su ID. |
-| GET | users/contractor/:id | Devuelve la información de un contratista por su ID. |
-| GET | users/find/:role | Devuelve todos los usuarios y gestiona informacion especifica de cada role. ||
+| Método | Ruta                 | Descripción                                                                 |
+| ------ | -------------------- | --------------------------------------------------------------------------- |
+| GET    | /users/find/:role    | Devuelve los usuarios filtrados por rol.                                    |
+| POST   | /users/reg           | Registra un nuevo usuario.                                                  |
+| DELETE | /users/delete/:id    | Elimina un usuario por su ID.                                               |
+| PUT    | /users/update/:id    | Actualiza la información de un usuario por su ID.                           |
+| POST   | /users/login         | Inicia sesión con un usuario registrado.                                    |
+| POST   | users/contract       | Registra un nuevo contrato.                                                 |
+| GET    | users/performers/:id | Devuelve la información de un intérprete por su ID.                         |
+| GET    | users/contractor/:id | Devuelve la información de un contratista por su ID.                        |
+| GET    | users/find/:role     | Devuelve todos los usuarios y gestiona informacion especifica de cada role. |
