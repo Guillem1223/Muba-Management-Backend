@@ -1,6 +1,8 @@
 # Muba Management BackEnd
 
-Este proyecto es un backend para una aplicación con Express, Sequelize y MySQL.
+Este proyecto es un backend para una aplicación destinada a la mejora y agilización de la gestión de contratación tradicional de servicios de artistas y músicos para la realización de eventos y conciertos, generando seguridad en los pagos y cobros, organización de trabajo y facilidad para generarlo, está hecho con Express, Sequelize y MySQL.
+
+<img src="./public/images/Management and Booking Diagrama BBDD.png">
 
 ## Dependencias
 
