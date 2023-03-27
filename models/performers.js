@@ -37,6 +37,15 @@ class performers extends Sequelize.Model {
           type: DataTypes.INTEGER,
           allowNull: false,
         },
+        likes: {
+          type: DataTypes.INTEGER,
+          allowNull: true,
+          defaultValue: 0,
+        },
+        music_styles: {
+          type: DataTypes.STRING(100),
+          allowNull: false,
+        },
         users_type_id: {
           type: DataTypes.INTEGER,
           allowNull: false,
