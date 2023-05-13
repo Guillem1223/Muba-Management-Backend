@@ -262,7 +262,7 @@ AuthController.login = async (req, res) => {
     const token = jwt.sign(
       { user_id: user.users_type_id, user_role: user.role },
       process.env.JWT_SECRET,
-      { expiresIn: "20m" }
+      { expiresIn: "1h" }
     );
 
     return res.status(200).json({
